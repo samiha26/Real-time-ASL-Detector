@@ -1,0 +1,29 @@
+import cv2 as cv
+
+def test_camera_display():
+    # Initialize the camera
+    cap = cv.VideoCapture(0)  # Change the device index if needed
+
+    if not cap.isOpened():
+        print("Error: Camera could not be opened.")
+        return
+
+    try:
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                print("Error: Couldn't read frame from camera.")
+                break
+
+            # Display the frame
+            cv.imshow('Camera Test', frame)
+
+            # Break the loop when 'ESC' key is pressed
+            if cv.waitKey(1) & 0xFF == 27:  # 27 is the ASCII code for 'ESC'
+                break
+    finally:
+        cap.release()
+        cv.destroyAllWindows()
+
+if __name__ == '__main__':
+    test_camera_display()
